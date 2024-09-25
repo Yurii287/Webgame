@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="stylesheet.css" />
 </head>
+
 <body>
     <!-- Page Navigation Bar -->
     <div class="navbar">
@@ -13,14 +15,16 @@
         <a href="leaderboards.html">Leaderboards</a>
         <a href="createAccount.html">Create an Account</a>
         <a href="login.html">Login</a>
+        <a href="manageAccount.html">Manage Account</a>
     </div>
-
-    <input type="text" id="username-el">
-    <input type="text" id="password-el">
-    <button id="login-btn">Login</button>
-
-    <ul id="leaderboard-el"></ul>
-
+    <div>
+        <p>Username:</p>
+        <input type="text" id="loginUsername-el" />
+        <p>Password: </p>
+        <input type="text" id="loginPassword-el" /><br><br>
+        <button id="login-btn">Login</button>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>
