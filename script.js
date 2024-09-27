@@ -102,6 +102,12 @@ if (document.URL.includes("homepage.html")) {
   const context = canvas.getContext("2d");
   
   let gameObjects = [];
+  let directions = {
+    left : 0,
+    up : 0,
+    down : 0,
+    right : 0
+  };
 
 // Classes
 
@@ -109,7 +115,7 @@ if (document.URL.includes("homepage.html")) {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.speed = 0.5;
+      this.speed = 5;
       this.level = 1;
       this.health = 100;
     }
@@ -117,28 +123,27 @@ if (document.URL.includes("homepage.html")) {
     move(direction) {
       context.fillStyle = "black";
       context.fillRect(0,0, canvas.width, canvas.height);
-
-      if (direction === "W") {
-        this.y = this.y - this.speed;
+      console.log(this.x);
+      console.log(this.y); 
+      if (directions.up === 1) {
+        this.y -= this.speed;
       }
-      if (direction === "A") {
+      if (directions.left === 1) {
         this.x -= this.speed;
       }
-      if (direction === "S") {
+      if (directions.down === 1) {
         this.y += this.speed;
       }
-      if (direction === "D") {
+      if (directions.right === 1) {
         this.x += this.speed;
       }
       this.reDraw()
-
     }
 
     reDraw() {
-      context.fillStyle = "white";
+      context.fillStyle = "lightblue";
       context.fillRect(this.x,this.y, 25, 25);
     }
-
   }
 
   class Weapon {
@@ -148,30 +153,87 @@ if (document.URL.includes("homepage.html")) {
     }
   }
 
-  let player = new Player(100, 100);
+  class Enemy {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.speed = 0.25;
+      this.damage = 25;
+      this.health = 100;
+    }
 
-  function startGame() {
-    context.fillStyle = "black";
-    context.fillRect(0,0, canvas.width, canvas.height);
-    setInterval(runGame, 50);
-    gameObjects.push(player);
+    move() {
+      this.y = player.y - this.y;
+      this.x = player.x - this.x;
+    }
+
+    reDraw() {
+      context.fillStyle = "red";
+      context.fillRect(this.x, this.y, 25, 25);
+    }
   }
 
+  let player = new Player(100, 100);
+  let defaultWeapon = new Weapon(30, 25);
+
+  function reDrawObjects() {
+    context.fillStyle = "black";
+    context.fillRect(0,0, canvas.width, canvas.height);
+
+    player.reDraw()
+  }
+
+  function startGame() {
+    console.log(player.x);
+    console.log(player.y); 
+
+    context.fillStyle = "black";
+    context.fillRect(0,0, canvas.width, canvas.height);
+
+    setInterval(runGame, 500);
+
+    gameObjects.push(player, defaultWeapon);
+    console.log(gameObjects);
+  }
+
+  window.addEventListener("keydown", (event) => {
+    if (event.code === "KeyA") {
+      directions.left = 1;
+      player.move();
+    }
+    if (event.code === "KeyS") {
+      directions.down = 1;
+      player.move("S");
+    }
+    if (event.code === "KeyW") {
+      directions.up = 1;
+      player.move("W");
+    }
+    if (event.code === "KeyD") {
+      directions.right = 1;
+      player.move("D");
+    }
+  })
+
+  window.addEventListener("keyup", (event) => {
+    if (event.code === "KeyA") {
+      directions.left = 0;
+    }
+    if (event.code === "KeyS") {
+      directions.down = 0;
+    }
+    if (event.code === "KeyW") {
+      directions.up = 0;
+    }
+    if (event.code === "KeyD") {
+      directions.right = 0;
+    }
+  })
+
   function runGame() {
-    window.addEventListener("keydown", (event) => {
-      if (event.code === "KeyA") {
-        player.move("A");
-      }
-      if (event.code === "KeyS") {
-        player.move("S");
-      }
-      if (event.code === "KeyW") {
-        player.move("W");
-      }
-      if (event.code === "KeyD") {
-        player.move("D");
-      }
-    })
+
+    spawnEnemy();
+
   }
 
 }
