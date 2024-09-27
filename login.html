@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!-- Add "forgot password" and "don't have an account Register" element -->
 
 <head>
     <meta charset="UTF-8" />
@@ -17,12 +18,13 @@
         <a href="login.html">Login</a>
         <a href="manageAccount.html">Manage Account</a>
     </div>
-    <div>
-        <p>Username:</p>
+    <div id="loginInput">
+        <p>Enter your Username:</p>
         <input type="text" id="loginUsername-el" />
-        <p>Password: </p>
+        <p>Enter your Password: </p>
         <input type="password" id="loginPassword-el" /><br><br>
         <button id="login-btn">Login</button>
+        <p>Don't have an account? <a href="createAccount.html">Register Now</a></p>
     </div>
     <script src="script.js"></script>
 </body>
