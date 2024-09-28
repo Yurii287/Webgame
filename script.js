@@ -100,7 +100,7 @@ if (document.URL.includes("homepage.html")) {
 // Game data
   const canvas = document.getElementById("gameCanvas");
   const context = canvas.getContext("2d");
-  
+
   let gameObjects = [];
   let directions = {
     left : 0,
@@ -110,21 +110,17 @@ if (document.URL.includes("homepage.html")) {
   };
 
 // Classes
-
   class Player {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.speed = 5;
+      this.speed = 10;
       this.level = 1;
       this.health = 100;
+      this.type = "player";
     }
 
-    move(direction) {
-      context.fillStyle = "black";
-      context.fillRect(0,0, canvas.width, canvas.height);
-      console.log(this.x);
-      console.log(this.y); 
+    move() {
       if (directions.up === 1) {
         this.y -= this.speed;
       }
@@ -137,7 +133,6 @@ if (document.URL.includes("homepage.html")) {
       if (directions.right === 1) {
         this.x += this.speed;
       }
-      this.reDraw()
     }
 
     reDraw() {
@@ -150,6 +145,7 @@ if (document.URL.includes("homepage.html")) {
     constructor(attackSpeed, attackDmg) {
       this.attackSpeed = attackSpeed;
       this.attackDmg = attackDmg;
+      this.type = "weapon";
     }
   }
 
@@ -157,14 +153,17 @@ if (document.URL.includes("homepage.html")) {
     constructor(x, y) {
       this.x = x;
       this.y = y;
-      this.speed = 0.25;
+      this.speed = 0.01;
       this.damage = 25;
       this.health = 100;
+      this.type = "enemy";
+      this.xDifference = 0;
+      this.yDifference = 0;
     }
 
     move() {
-      this.y = player.y - this.y;
-      this.x = player.x - this.x;
+      this.x += ((player.x - this.x) * this.speed);
+      this.y += ((player.y - this.y) * this.speed);
     }
 
     reDraw() {
@@ -173,29 +172,41 @@ if (document.URL.includes("homepage.html")) {
     }
   }
 
-  let player = new Player(100, 100);
+  let player = new Player(canvas.width / 2, canvas.height / 2);
   let defaultWeapon = new Weapon(30, 25);
+//  let enemy = new Enemy(50, 50);
 
+// Game Functions
   function reDrawObjects() {
     context.fillStyle = "black";
     context.fillRect(0,0, canvas.width, canvas.height);
+    
+    for (let item of gameObjects) {
+      item.reDraw();
+    }
+  }
 
-    player.reDraw()
+  function spawnEnemy() {
+    gameObjects.push(new Enemy(100, 100));
+  }
+
+  function moveEnemy() {
+    for (let item of gameObjects) {
+      if (item.type === "enemy") {
+        item.move();
+      }
+    }
   }
 
   function startGame() {
-    console.log(player.x);
-    console.log(player.y); 
+    reDrawObjects();
 
-    context.fillStyle = "black";
-    context.fillRect(0,0, canvas.width, canvas.height);
+    setInterval(runGame, 10);
 
-    setInterval(runGame, 500);
-
-    gameObjects.push(player, defaultWeapon);
-    console.log(gameObjects);
+    gameObjects.push(player);
   }
 
+// Key bindings
   window.addEventListener("keydown", (event) => {
     if (event.code === "KeyA") {
       directions.left = 1;
@@ -212,6 +223,9 @@ if (document.URL.includes("homepage.html")) {
     if (event.code === "KeyD") {
       directions.right = 1;
       player.move("D");
+    }
+    if (event.code === "KeyF") {
+      spawnEnemy();
     }
   })
 
@@ -230,10 +244,20 @@ if (document.URL.includes("homepage.html")) {
     }
   })
 
+// Render UI
+  function renderUI() {
+    context.fillStyle = "white";
+    context.font = "bold 16px Arial";
+    context.textAlign = "start";
+    context.textBaseline = "middle";
+    context.fillText("Health : " + player.health, 0, 10);
+  }
+
+// Game
   function runGame() {
-
-    spawnEnemy();
-
+    reDrawObjects();
+    renderUI();
+    moveEnemy();
   }
 
 }
