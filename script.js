@@ -6,7 +6,6 @@
 //    and have that object defined in a "loggedInUser" variable
 // For the leaderboard use a template string to display the scores and names
 // For leaderboard use a table to display the data
-// For game, create classes for: player, enemy and weapons/upgrades
 
 // ------------------------------------------------------------------------------
 // User Data
@@ -278,6 +277,8 @@ if (document.URL.includes("login.html")) {
         if (loginPasswordEl.value == item[i].password) {
           console.log("Logging in user");
           loggedIn = true;
+          loggedInUser = item[i].username;
+          
         } 
         else {
           console.log("Account password does not exist");
