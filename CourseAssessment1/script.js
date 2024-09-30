@@ -1,4 +1,11 @@
 // TODO:
+// have a different regex for username and password
+// need a regex for email and phone number as well
+// add a default value to the create account and login pages
+// add a way to pause the game with escape
+// add difficulty levels for the game, create a menu for selection, different difficulties will affect enemy speed and/or dmg
+// ask for email and phone number
+// use different modules for the game
 // Add way to delete account/Log out
 // If someone is logged in replace "Create an Account" with "Manage Account"
 // For the leaderboard use a template string to display the scores and names
@@ -10,9 +17,17 @@
 let userData = [];
 let loggedInUser = null;
 
-function User(username, password) {
+// Regex:
+// Must have AT LEAST ONE uppercase character
+// Must have AT LEAST ONE digit
+// must be longer than 8 characters
+let accountTest = /^(?=.*?[A-Z])(?=.*?[0-9]).{8,}$/;  
+
+function User(username, password, email, phoneNumber) {
   this.username = username;
   this.password = password
+  this.email = email;
+  this.phoneNumber = phoneNumber;
   this.score = 0;
   this.ranking = 0;
 }
@@ -54,31 +69,31 @@ if (document.URL.includes("leaderboards.html")) {
 if (document.URL.includes("createAccount.html")) {
   const accountUsernameEl = document.getElementById("accountUsername-el");
   const accountPasswordEl = document.getElementById("accountPassword-el");
-  const accountPasswordCheckEl = document.getElementById(
-    "accountPasswordCheck-el"
-  );
+  const accountPasswordCheckEl = document.getElementById("accountPasswordCheck-el");
   const accountInputBtn = document.getElementById("accountInput-btn");
+
+
 
   // Create an Account Functions
   accountInputBtn.addEventListener("click", function () {
-    // Regex to test that only allows alphabetic characters
-    let createAccountTest = /^[a-zA-Z]+$/;
 
     // Account creation message
     let accountMessageText = "";
     let accountMessage = document.getElementById("welcomeMessage");
-    let accountDiv = document.getElementById("createAccountInput");
 
     // Check if username already exists
     let accountCheck = checkUserDetails(accountUsernameEl.value);
 
     if (accountPasswordEl.value != accountPasswordCheckEl.value) {
+      accountMessage.innerHTML = "";
       accountMessageText = "Error: Passwords do not match";
     }
-    else if (createAccountTest.test(accountUsernameEl.value) == false){
+    else if (accountTest.test(accountUsernameEl.value) == false){
+      accountMessage.innerHTML = "";
       accountMessageText = "Error: Please enter a valid username";
     }
-    else if (createAccountTest.test(accountPasswordEl.value) == false) {
+    else if (accountTest.test(accountPasswordEl.value) == false) {
+      accountMessage.innerHTML = "";
       accountMessageText = "Error: Please enter a valid password";
     } 
     else if (accountCheck === true) {
@@ -86,20 +101,17 @@ if (document.URL.includes("createAccount.html")) {
       accountMessageText = "Account created";
     }
     else if (accountCheck === false) {
+      accountMessage.innerHTML = "";
       accountMessageText = "Error: Account with that username already exists";
     }
-    
-    console.log(accountMessageText);
 
     let accountMessageNode = document.createTextNode(accountMessageText);
     accountMessage.appendChild(accountMessageNode);
-    accountDiv.appendChild(accountMessage);
 
     // Clearing the input
     accountUsernameEl.value = "";
     accountPasswordEl.value = "";
     accountPasswordCheckEl.value = "";
-    
   });
 
   function checkUserDetails(username) {
@@ -146,6 +158,7 @@ if (document.URL.includes("homepage.html")) {
       this.level = 1;
       this.health = 100;
       this.type = "player";
+      this.score = 0;
     }
 
     move() {
@@ -228,6 +241,8 @@ if (document.URL.includes("homepage.html")) {
   }
 
   function startGame() {
+    document.getElementById("start-btn").disabled = true;
+
     reDrawObjects();
 
     setInterval(runGame, 10);
@@ -238,7 +253,15 @@ if (document.URL.includes("homepage.html")) {
 
 // Helper functions
 
-  function checkBounds() {
+  function setBounds() {
+
+  }
+
+  function checkCollision() {
+
+  }
+
+  function pauseGame() {
 
   }
 
@@ -260,8 +283,8 @@ if (document.URL.includes("homepage.html")) {
       directions.right = 1;
       player.move("D");
     }
-    if (event.code === "KeyF") {
-      spawnEnemy();
+    if (event.code === "Escape") {
+
     }
   })
 
@@ -287,6 +310,7 @@ if (document.URL.includes("homepage.html")) {
     context.textAlign = "start";
     context.textBaseline = "middle";
     context.fillText("Health : " + player.health, 0, 10);
+    context.fillText("Score : " + player.score, 0, 30);
   }
 
 // Game
@@ -303,36 +327,39 @@ if (document.URL.includes("login.html")) {
   const loginUsernameEl = document.getElementById("loginUsername-el");
   const loginPasswordEl = document.getElementById("loginPassword-el");
   const loginInputBtn = document.getElementById("login-btn");
-
-  let loginMessageText = "";
   let loginMessage = document.getElementById("loginMessage");
-  let loginDiv = document.getElementById("loginInput");
+
 
   // Login Page Functions
   loginInputBtn.addEventListener("click", function () {
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-      let item = JSON.parse(localStorage.getItem(key));
-
-      if (loginUsernameEl.value == item[i].username) {
-        if (loginPasswordEl.value == item[i].password) {
-          loginMessageText = "Logging in user " + item[i].username;
-          loggedInUser = item[i].username
-          localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
-        } 
-        else {
-          loginMessageText = "Account with that password does not exist";
+    // Check if any accounts have been made
+    if (localStorage.length === 0) {
+      loginMessage.innerHTML = "Error: No Accounts Created";
+    }
+    // If there are accounts, iterate through to check what username and password matches
+    else {
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let item = JSON.parse(localStorage.getItem(key));
+        // check username
+        if (loginUsernameEl.value == item[i].username) {
+          // check password
+          if (loginPasswordEl.value == item[i].password) {
+            loginMessage.innerHTML = "Logging in user " + item[i].username;
+            loggedInUser = item[i].username
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+          } 
+          //password doesn't match
+          else {
+            loginMessage.innerHTML = "Error: Account with that password does not exist";
+          }
         }
-      } 
-      else {
-        loginMessageText = "Account with the username " + item[i].username + " does not exist";
+        // username doesn't match
+        else {
+          loginMessage.innerHTML = "Error: Account with that username does not exist";
+        }
       }
     }
-
-    let loginMessageNode = document.createTextNode(loginMessageText);
-    loginMessage.appendChild(loginMessageNode);
-    loginDiv.appendChild(loginMessage);
-
 
     // Clearing the input
     loginUsernameEl.value = "";
