@@ -202,7 +202,6 @@ if (document.URL.includes("homepage.html")) {
 
   let player = new Player(canvas.width / 2, canvas.height / 2);
   let defaultWeapon = new Weapon(30, 25);
-//  let enemy = new Enemy(50, 50);
 
 // Game Functions
   function reDrawObjects() {
@@ -215,7 +214,9 @@ if (document.URL.includes("homepage.html")) {
   }
 
   function spawnEnemy() {
-    gameObjects.push(new Enemy(100, 100));
+    let randomX = Math.floor(Math.random() * (canvas.width - 0 + 1)) + 0;
+    let randomY = Math.floor(Math.random() * (canvas.height - 0 + 1)) + 0;
+    gameObjects.push(new Enemy(randomX, randomY));
   }
 
   function moveEnemy() {
@@ -230,8 +231,15 @@ if (document.URL.includes("homepage.html")) {
     reDrawObjects();
 
     setInterval(runGame, 10);
+    setInterval(spawnEnemy, 2000);
 
     gameObjects.push(player);
+  }
+
+// Helper functions
+
+  function checkBounds() {
+
   }
 
 // Key bindings
