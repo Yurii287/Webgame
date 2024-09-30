@@ -1,16 +1,13 @@
 // TODO:
-// Add way of checking if account already exists
 // Add way to delete account/Log out
 // If someone is logged in replace "Create an Account" with "Manage Account"
-// To log in the user, after checking through local storage of what user object matches those credentials, get the index of that object 
-//    and have that object defined in a "loggedInUser" variable
 // For the leaderboard use a template string to display the scores and names
 // For leaderboard use a table to display the data
+// create a seperate function for accessing the local storage so that the code is not repeated too much
 
 // ------------------------------------------------------------------------------
 // User Data
 let userData = [];
-let loggedIn = false;
 let loggedInUser = null;
 
 function User(username, password) {
@@ -23,30 +20,39 @@ function User(username, password) {
 // ------------------------------------------------------------------------------
 // Leaderboard Page Elements
 if (document.URL.includes("leaderboards.html")) {
+  // get currently logged in user
+  loggedInUser = localStorage.getItem("loggedInUser");
+
   const leaderboardLoggedInScore = document.getElementById("loggedInScore-el");
   const leaderboardLoggedInPosition = document.getElementById("loggedinPosition-el")
-  leaderboardLoggedInScore.innerHTML = "Your Score is : ";
-  leaderboardLoggedInPosition.innerHTML = "Your Global Position is : ";
+
   getUserRanking();
-  getLeaderboardRanking();
 
   function getUserRanking() {
-    if (loggedInUser == null) {
-      leaderboardLoggedInScore.innerHTML = "You are not currently logged in." + "<a href='login.html'>"+ "  Login "+"</a>" +"here to see your score.";
-      leaderboardLoggedInPosition.innerHTML = "";
+    if (loggedInUser === null) {
+      leaderboardLoggedInScore.innerHTML = "Score: Not currently logged in ";
+      leaderboardLoggedInPosition.innerHTML = "Ranking: Not currently logged in: ";
+    }
+    else {
+      leaderboardLoggedInScore.innerHTML = "Your Score is : ";
+      leaderboardLoggedInPosition.innerHTML = "Your Global Position is : ";
     }
   }
 
-  function getLeaderboardRanking() {
+  function loggedInRankingCheck() {
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      let item = JSON.parse(localStorage.getItem(key));
 
+      console.log(item[i]);
+    }
   }
-
 }
 
 // ------------------------------------------------------------------------------
 // Create an Account Elements
 if (document.URL.includes("createAccount.html")) {
-  const accountUsernameEL = document.getElementById("accountUsername-el");
+  const accountUsernameEl = document.getElementById("accountUsername-el");
   const accountPasswordEl = document.getElementById("accountPassword-el");
   const accountPasswordCheckEl = document.getElementById(
     "accountPasswordCheck-el"
@@ -58,39 +64,62 @@ if (document.URL.includes("createAccount.html")) {
     // Regex to test that only allows alphabetic characters
     let createAccountTest = /^[a-zA-Z]+$/;
 
+    // Account creation message
     let accountMessageText = "";
     let accountMessage = document.getElementById("welcomeMessage");
     let accountDiv = document.getElementById("createAccountInput");
 
+    // Check if username already exists
+    let accountCheck = checkUserDetails(accountUsernameEl.value);
+
     if (accountPasswordEl.value != accountPasswordCheckEl.value) {
       accountMessageText = "Error: Passwords do not match";
     }
-    else if (createAccountTest.test(accountUsernameEL.value) == false){
+    else if (createAccountTest.test(accountUsernameEl.value) == false){
       accountMessageText = "Error: Please enter a valid username";
     }
     else if (createAccountTest.test(accountPasswordEl.value) == false) {
       accountMessageText = "Error: Please enter a valid password";
     } 
-    else {
-      accountMessageText = "Account Created";
-      createUserAccount(accountUsernameEL.value, accountPasswordEl.value);
+    else if (accountCheck === true) {
+      createUserAccount(accountUsernameEl.value, accountPasswordEl.value);
+      accountMessageText = "Account created";
     }
-    accountMessageNode = document.createTextNode(accountMessageText);
+    else if (accountCheck === false) {
+      accountMessageText = "Error: Account with that username already exists";
+    }
+    
+    console.log(accountMessageText);
+
+    let accountMessageNode = document.createTextNode(accountMessageText);
     accountMessage.appendChild(accountMessageNode);
     accountDiv.appendChild(accountMessage);
 
     // Clearing the input
-    accountUsernameEL.value = "";
+    accountUsernameEl.value = "";
     accountPasswordEl.value = "";
     accountPasswordCheckEl.value = "";
     
   });
 
+  function checkUserDetails(username) {
+    if (localStorage.length === 0) {
+      return true;
+    }
+    else {
+      for (let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let item = JSON.parse(localStorage.getItem(key));
+        if (username === item[i].username) {
+          return false;
+        }
+      }
+    }
+  }
+
   function createUserAccount(username, password) {
     userData.push(new User(username, password));
-    localStorage.setItem("userData", JSON.stringify(userData));
-
-    
+    localStorage.setItem("userData", JSON.stringify(userData)); 
   }
 }
 // ------------------------------------------------------------------------------
@@ -267,6 +296,10 @@ if (document.URL.includes("login.html")) {
   const loginPasswordEl = document.getElementById("loginPassword-el");
   const loginInputBtn = document.getElementById("login-btn");
 
+  let loginMessageText = "";
+  let loginMessage = document.getElementById("loginMessage");
+  let loginDiv = document.getElementById("loginInput");
+
   // Login Page Functions
   loginInputBtn.addEventListener("click", function () {
     for (let i = 0; i < localStorage.length; i++) {
@@ -275,19 +308,24 @@ if (document.URL.includes("login.html")) {
 
       if (loginUsernameEl.value == item[i].username) {
         if (loginPasswordEl.value == item[i].password) {
-          console.log("Logging in user");
-          loggedIn = true;
-          loggedInUser = item[i].username;
-          
+          loginMessageText = "Logging in user " + item[i].username;
+          loggedInUser = item[i].username
+          localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
         } 
         else {
-          console.log("Account password does not exist");
+          loginMessageText = "Account with that password does not exist";
         }
       } 
       else {
-        console.log("Account username does not exist");
+        loginMessageText = "Account with the username " + item[i].username + " does not exist";
       }
     }
+
+    let loginMessageNode = document.createTextNode(loginMessageText);
+    loginMessage.appendChild(loginMessageNode);
+    loginDiv.appendChild(loginMessage);
+
+
     // Clearing the input
     loginUsernameEl.value = "";
     loginPasswordEl.value = "";
