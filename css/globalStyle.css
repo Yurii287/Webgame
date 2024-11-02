@@ -1,0 +1,365 @@
+/* Fonts */
+@font-face {
+    font-family: Lato-Regular;
+    src: url("fonts/Lato-Regular.ttf");
+}
+
+@font-face {
+    font-family: Game-Font;
+    src: url("fonts/GameFont.ttf");
+}
+
+/* General */ 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Lato-Regular;
+}
+
+body {
+    background-image: url("images/background.jpeg");
+    background-size: 1920px;
+}
+
+p, span{
+    color: #edf2f4;
+    font-family: Lato-Regular;
+    font-size: 18px;
+}
+
+h1, h2, h3 {
+    color: #edf2f4;
+}
+
+a {
+    color:black;
+}
+
+/* Navbar */
+.navList {
+    height: 5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    background: red;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 99;
+    text-decoration: none;
+    list-style: none;
+}
+
+.navItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.navLogo {
+    font-size: 2em;
+    color: #fff;
+    user-select: none;
+    width: 80px;
+    overflow: hidden;
+}
+
+.navText {
+    width: 10em;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.navIcon, .navText {
+    color: #2b2d42;
+}
+
+.navIcon {
+    font-size: 38px;
+    transition: color 200ms;
+}
+
+/* Make the nav bar segments go darker once you hover over them */
+.navText:hover {
+    height: 5rem;
+    background-color: #d90429;
+}
+
+/* change the background color once you hover over the nav bar segment */
+.navText:hover .linkText, .navText:hover .navIcon {
+    color: #edf2f4
+}
+
+/* Login and Create Account Page */
+.loginWrapper,
+.accountWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #edf2f4;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginWrapper {
+    margin-top: -220px;
+    margin-left: -200px;
+    width: 400px;
+    height: 440px;
+}
+
+.accountWrapper {
+    margin-top: -280px;
+    margin-left: -200px;
+    width: 450px;
+    height: 600px;
+}
+
+.accountWrapper a,
+.loginWrapper a {
+    color:#edf2f4;
+}
+
+.loginWrapper .login-box,
+.accountWrapper .create-account-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.login-box h2,
+.create-account-box h2 {
+    font-size: 2em;
+    text-align: center;
+}
+
+#username-input-box,
+#email-input-box,
+#password-input-box,
+#phone-input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #edf2f4;
+    margin: 30px 0 ;
+}
+
+#username-input-box label,
+#email-input-box label,
+#password-input-box label,
+#phone-input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    font-size: 1em;
+    pointer-events: none;
+    transition: top 100ms;
+}
+
+/* Makes the input tags for the inputs move out of the way when they are focused or when there is a value in the input */
+
+#username-input-box input:focus~label,
+#username-input-box input:valid~label,
+
+#email-input-box input:focus~label,
+#email-input-box input:valid~label,
+
+#password-input-box input:focus~label,
+#password-input-box input:valid~label,
+
+#phone-input-box input:focus~label,
+#phone-input-box input:valid~label {
+    top: -5px;
+}
+
+#username-input-box input,
+#email-input-box input,
+#password-input-box input,
+#phone-input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #edf2f4;
+    font-size: 1em;
+}
+
+#username-input-box .icon,
+#email-input-box .icon,
+#password-input-box .icon,
+#phone-input-box .icon {
+    position: absolute; 
+    right: 8px;
+    font-size: 1.2em;
+    color: #edf2f4;
+    line-height: 57px ;
+}
+
+#login-btn,
+#accountInput-btn {
+    width: 100%;
+    height: 45px;
+    background: #2b2d42;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #edf2f4;
+}
+
+.account-link {
+    font-size: 0.9em;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+
+.account-link p a {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.account-link p a:hover {
+    text-decoration: underline;
+}
+
+#accountMessage {
+    font-weight: bold;
+    color: #ef233c;
+    text-align: center;
+    width: 325px;
+}
+
+/* Icons for Registration */
+.fa-circle-info{
+    transform: translate(-115%, 300%);
+    font-size: 28px;
+    color: #edf2f4;
+}
+
+.fa-solid .helpToolTip {
+    visibility: hidden;
+    background-color: rgb(53, 53, 53);
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    padding-bottom: 5px;
+    font-weight: 100;
+    width: 250px;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-115%, -30%);
+}
+
+.fa-solid:hover .helpToolTip{
+    visibility: visible;
+}
+
+/* Homepage */
+
+#gameCanvas {
+    visibility: visible;
+    border: 4px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(40px);
+    margin-right: 20px;
+}
+
+#start-btn {
+    font-family: Lato-Regular;
+    background-color: #2b2d42;
+    border: 0;
+    padding: 10px;
+    color: #edf2f4;
+    font-size: 50px;
+    margin: auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    border-radius: 20px;
+}
+/* Animation for when the buttons are pressed to give feedback to the user */
+#start-btn:active {
+    transform: scale(0.9);
+}
+
+#gameDiv {
+    position: absolute;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#menuDiv {
+    background-color: #2b2d42;
+    margin-left: 50px;
+    padding-top: 10px;
+    padding-left: 200px;
+    padding-right: 200px;
+    border: 4px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    text-align: center;
+}
+
+#menuDiv li {
+    color: #edf2f4;
+    font-size: 18px;
+    list-style: inside;
+}
+
+.difficulty {
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.068);
+    border: 2px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.difficulty:active {
+    transform: scale(0.9);
+}
+
+/* Leaderboard */
+.leaderboardWrapper {
+    width: 1000px;
+    height: 750px;
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #edf2f4;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    justify-content: center;
+    text-align: center;
+}
+
+.leaderboard-box {
+    width: 100%;
+    padding: 40px;
+    font-size: 18px;
+}
+
+/* Move the numbers for the ranking to the centre */ 
+#topTenList {
+    font-size: 18px;
+    text-align: center;
+    list-style-position: inside;
+}
