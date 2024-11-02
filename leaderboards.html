@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboards</title>
+    <link rel="stylesheet" type="text/css" href="css/globalStyle.css" />
+    <script
+      src="https://kit.fontawesome.com/68fc5428be.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Page Navigation Bar -->
+    <header>
+      <div class="navbar">
+        <ul class="navList">
+          <!-- Icon  -->
+          <li class="navItem">
+            <img src="css\images\icon1.jpg" class="navLogo" />
+          </li>
+          <!-- Homepage link -->
+          <li class="navItem">
+            <a class="navText" href="homepage.html">
+              <i class="navIcon fa-solid fa-gamepad"></i>
+              <span class="linkText">Homepage</span>
+            </a>
+          </li>
+          <!-- Leaderboard link -->
+          <li class="navItem">
+            <a class="navText" href="leaderboards.html">
+              <i class="navIcon fa-solid fa-chart-simple"></i>
+              <span class="linkText">Leaderboards</span>
+            </a>
+          </li>
+          <!-- Registration link -->
+          <li class="navItem">
+            <a class="navText" class="navText" href="createAccount.html">
+              <i class="navIcon fa-solid fa-plus"></i>
+              <span class="linkText">Create an Account</span>
+            </a>
+          </li>
+          <!-- Login link -->
+          <li class="navItem">
+            <a id="loginButton" class="navText" href="login.html">
+              <i id="loginIcon" class="navIcon fa-solid fa-user"></i>
+              <span id="loginNav" class="linkText">Login</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="leaderboardWrapper">
+      <div class="leaderboard-box">
+        <!-- Score of logged in user -->
+        <div id="loggedInScore">
+          <h3 id="loggedInHeader">Your Score Is:</h3>
+        </div>
+
+        <br /><br />
+        <!-- Highset Score stored in user data -->
+        <div id="highestScore">
+          <h3 id="highestScoreHeader">Highest Score:</h3>
+        </div>
+
+        <br /><br />
+        <!-- Top ten scores -->
+        <div id="otherScores">
+          <h3 id="topTenHeader">Top Ten Scores:</h3>
+          <ol id="topTenList"></ol>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="javascript/leaderboard.js"></script>
+  </body>
+</html>

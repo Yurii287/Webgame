@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create an Account</title>
+    <link rel="stylesheet" type="text/css" href="css/globalStyle.css" />
+    <script
+      src="https://kit.fontawesome.com/68fc5428be.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Page Navigation Bar -->
+    <header>
+      <div class="navbar">
+        <ul class="navList">
+          <!-- Icon  -->
+          <li class="navItem">
+            <img src="css\images\icon1.jpg" class="navLogo" />
+          </li>
+          <!-- Homepage link -->
+          <li class="navItem">
+            <a class="navText" href="homepage.html">
+              <i class="navIcon fa-solid fa-gamepad"></i>
+              <span class="linkText">Homepage</span>
+            </a>
+          </li>
+          <!-- Leaderboard link -->
+          <li class="navItem">
+            <a class="navText" href="leaderboards.html">
+              <i class="navIcon fa-solid fa-chart-simple"></i>
+              <span class="linkText">Leaderboards</span>
+            </a>
+          </li>
+          <!-- Registration link -->
+          <li class="navItem">
+            <a class="navText" class="navText" href="createAccount.html">
+              <i class="navIcon fa-solid fa-plus"></i>
+              <span class="linkText">Create an Account</span>
+            </a>
+          </li>
+          <!-- Login link -->
+          <li class="navItem">
+            <a id="loginButton" class="navText" href="login.html">
+              <i id="loginIcon" class="navIcon fa-solid fa-user"></i>
+              <span id="loginNav" class="linkText">Login</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Create Account Box -->
+
+    <div class="accountWrapper">
+      <div class="create-account-box">
+        <!-- Information Helper Icon -->
+        <i class="fa-solid fa-circle-info">
+          <span class="helpToolTip">
+            Username & Password Must:<br /><br />
+            *contain at least 1 digit;<br />
+            *contain at least 1 uppercase letter;<br />
+            *be 8 characters or longer</span
+          >
+        </i>
+        <!-- Username Input -->
+        <h2>Create Your Account</h2>
+        <div id="username-input-box">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <input
+            class="inputBox"
+            type="text"
+            id="accountUsername-el"
+            required
+          />
+          <label>Username</label>
+        </div>
+        <!-- Email Input -->
+        <div id="email-input-box">
+          <span class="icon"><i class="fa-regular fa-envelope"></i></span>
+          <input class="inputBox" type="text" id="accountEmail" required />
+          <label>Email</label>
+        </div>
+        <!-- Password Input -->
+        <div id="password-input-box">
+          <span class="icon"><i class="fa-solid fa-lock"></i></span>
+          <input
+            class="inputBox"
+            type="password"
+            id="accountPassword-el"
+            required
+          />
+          <label>Password</label>
+        </div>
+        <!-- Phone Number Input -->
+        <div id="phone-input-box">
+          <span class="icon"><i class="fa-solid fa-phone"></i></span>
+          <input class="inputBox" type="tel" id="accountNumber" required />
+          <label>Phone Number</label>
+        </div>
+        <!-- Create Account Button -->
+        <button id="accountInput-btn">Create Account</button>
+        <div class="account-link">
+          <p>
+            Already have an account? Click here to
+            <a href="login.html">Login</a>
+          </p>
+        </div>
+        <p id="accountMessage"></p>
+      </div>
+    </div>
+
+    <script type="module" src="javascript\createAccount.js"></script>
+  </body>
+</html>

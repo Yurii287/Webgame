@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Add "forgot password" and "don't have an account Register" element -->
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/globalStyle.css" />
+    <script
+      src="https://kit.fontawesome.com/68fc5428be.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Page Navigation Bar -->
+    <header>
+      <div class="navbar">
+        <ul class="navList">
+          <!-- Icon  -->
+          <li class="navItem">
+            <img src="css\images\icon1.jpg" class="navLogo" />
+          </li>
+          <!-- Homepage link -->
+          <li class="navItem">
+            <a class="navText" href="homepage.html">
+              <i class="navIcon fa-solid fa-gamepad"></i>
+              <span class="linkText">Homepage</span>
+            </a>
+          </li>
+          <!-- Leaderboard link -->
+          <li class="navItem">
+            <a class="navText" href="leaderboards.html">
+              <i class="navIcon fa-solid fa-chart-simple"></i>
+              <span class="linkText">Leaderboards</span>
+            </a>
+          </li>
+          <!-- Registration link -->
+          <li class="navItem">
+            <a class="navText" class="navText" href="createAccount.html">
+              <i class="navIcon fa-solid fa-plus"></i>
+              <span class="linkText">Create an Account</span>
+            </a>
+          </li>
+          <!-- Login link -->
+          <li class="navItem">
+            <a id="loginButton" class="navText" href="login.html">
+              <i id="loginIcon" class="navIcon fa-solid fa-user"></i>
+              <span id="loginNav" class="linkText">Login</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Login Box -->
+    <div class="loginWrapper">
+      <div class="login-box">
+        <h2>Login</h2>
+        <!-- Username Input -->
+        <div id="username-input-box">
+          <span class="icon"><i class="fa-solid fa-user"></i></span>
+          <input class="input-el" type="text" id="loginUsername-el" required />
+          <label>Username</label>
+        </div>
+        <!-- Password Input -->
+        <div id="password-input-box">
+          <span class="icon"><i class="fa-solid fa-lock"></i></span>
+          <input
+            class="input-el"
+            type="password"
+            id="loginPassword-el"
+            required
+          />
+          <label>Password</label>
+        </div>
+        <!-- Login Button -->
+        <button id="login-btn">Login</button>
+        <div class="account-link">
+          <p>
+            Don't have an account? <a href="createAccount.html">Register Now</a>
+          </p>
+        </div>
+        <p id="accountMessage"></p>
+      </div>
+    </div>
+
+    <script type="module" src="javascript/login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <link rel="stylesheet" type="text/css" href="css/globalStyle.css" />
+    <script
+      src="https://kit.fontawesome.com/68fc5428be.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Page Navigation Bar -->
+    <header>
+      <div class="navbar">
+        <ul class="navList">
+          <!-- Icon  -->
+          <li class="navItem">
+            <img src="css\images\icon1.jpg" class="navLogo" />
+          </li>
+          <!-- Homepage link -->
+          <li class="navItem">
+            <a class="navText" href="homepage.html">
+              <i class="navIcon fa-solid fa-gamepad"></i>
+              <span class="linkText">Homepage</span>
+            </a>
+          </li>
+          <!-- Leaderboard link -->
+          <li class="navItem">
+            <a class="navText" href="leaderboards.html">
+              <i class="navIcon fa-solid fa-chart-simple"></i>
+              <span class="linkText">Leaderboards</span>
+            </a>
+          </li>
+          <!-- Registration link -->
+          <li class="navItem">
+            <a class="navText" class="navText" href="createAccount.html">
+              <i class="navIcon fa-solid fa-plus"></i>
+              <span class="linkText">Create an Account</span>
+            </a>
+          </li>
+          <!-- Login link -->
+          <li class="navItem">
+            <a id="loginButton" class="navText" href="login.html">
+              <i id="loginIcon" class="navIcon fa-solid fa-user"></i>
+              <span id="loginNav" class="linkText">Login</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div id="gameDiv">
+      <div id="menuDiv">
+        <!-- Introduction to game -->
+        <h1>Welcome to the game</h1>
+        <h2>To begin press the "Start Game" button below</h2>
+
+        <br />
+
+        <h3>Controls:</h3>
+        <!-- Controls for the game -->
+        <ul>
+          <li>Movement: up/down/left/right : [w]/[a]/[s]/[d]</li>
+          <li>Pause Game: [Spacebar]</li>
+          <li>Restart Game - Only when dead: [r]</li>
+        </ul>
+
+        <br />
+        <!-- Difficulty elements -->
+        <h3>Difficulty:</h3>
+        <br />
+        <h2 id="easy" class="difficulty">Easy</h2>
+        <p>Slower enemies but you gain less points</p>
+        <br />
+
+        <h2 id="med" class="difficulty">Normal</h2>
+        <p>The intended difficulty to be played at</p>
+        <br />
+
+        <h2 id="hard" class="difficulty">Hard</h2>
+        <p>Much faster spawn rate, however there are more points available</p>
+        <br />
+
+        <!-- Description of game -->
+        <br />
+
+        <p>
+          This game is an arcade survival game to see how long you can survive.
+
+          <br /><br />
+
+          Kill enemies, level up and grow more powerful as you try to beat your
+          high score. Your score is increased after each enemy killed.
+        </p>
+        <br />
+        <!-- Start Game Button -->
+        <button id="start-btn">Start Game</button>
+      </div>
+
+      <div id="canvasDiv">
+        <canvas id="gameCanvas" width="1000" height="750">
+          <img
+            id="playerSpriteSheet"
+            src="javascript/gameModules/assets/Player.png"
+          />
+          <img
+            id="enemySpriteSheet"
+            src="javascript/gameModules/assets/Skeleton.png"
+          />
+          <img
+            id="backgroundImage"
+            src="javascript/gameModules/assets/background.png"
+          />
+        </canvas>
+      </div>
+
+      <script type="module" src="javascript/homepage.js"></script>
+    </div>
+  </body>
+</html>
